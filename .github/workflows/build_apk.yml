@@ -24,6 +24,12 @@ jobs:
           channel: 'stable'
           cache: true
 
+      - name: Initialize Flutter Project Structure & Move Main
+        run: |
+          flutter create . --org com.aivideo.app --project-name ai_video_app --platforms=android
+          mkdir -p lib
+          if [ -f "main.dart" ]; then cp main.dart lib/main.dart; fi
+
       - name: Install dependencies
         run: flutter pub get
 
