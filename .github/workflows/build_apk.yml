@@ -1,3 +1,5 @@
+
+          
 name: Build Flutter APK
 
 on:
@@ -22,21 +24,21 @@ jobs:
         with:
           flutter-version: '3.19.x'
           channel: 'stable'
-          cache: true
 
-      - name: Initialize Flutter Project Structure & Move Main
+      - name: Create Clean Flutter App
         run: |
-          flutter create . --org com.aivideo.app --project-name ai_video_app --platforms=android
+          flutter create . --org com.example.app --project-name aivideoapp
+          # Ensure lib directory exists and copy main.dart if available
           mkdir -p lib
           if [ -f "main.dart" ]; then cp main.dart lib/main.dart; fi
 
-      - name: Install dependencies
+      - name: Get Dependencies
         run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release
